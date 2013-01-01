@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Brainpast</title>
+    <script src="JS/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="JS/rollups/aes.js" type="text/javascript"></script>
+    <script src="JS/rollups/sha512.js" type="text/javascript"></script>
+    <script src="JavaScript1.js" type="text/javascript"></script>
+    <style type="text/css">
+        #quscon
+        { 
+            width:600px;
+            background-repeat:no-repeat;
+            background-position:center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Brainpast</h1>
+    hash
+    <input type="text" id="hash" />
+    <br />enc:
+    <input type="text" id="qusenc" />
+    <br />inputqus:
+    <input type="text" id="iptqus" />
+    <br />passwd:
+    <input type="text" id="iptpas" />
+    <input type="button" id="subans" />
+    <script type="text/javascript">
+        $("#subans").click(function () {
+            $("#qusenc").val(
+                CryptoJS.AES.encrypt($("#iptqus").val(), $("#iptpas").val()).toString().replace(/\s/, "")
+               );
+            $("#hash").val(
+            CryptoJS.SHA512($("#iptpas").val()).toString()
+           );
+        });
+
+    </script>
+</body>
+</html>
