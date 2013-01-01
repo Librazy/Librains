@@ -163,5 +163,5 @@ pip-log.txt
 .DS_Store
 
 #Librazy
-*.sin
+*.sln
 *.csproj
