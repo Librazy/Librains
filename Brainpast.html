@@ -104,10 +104,10 @@
         <![endif]-->
     <script type="text/javascript">
         $(document).ready(function () {
-            if (localStorage.getItem("visbefore") && localStorage.getItem("lastpass") && localStorage.getItem("lastlev")) {
+            if (window.localStorage.getItem("visbefore") && window.localStorage.getItem("lastpass") && window.localStorage.getItem("lastlev")) {
                 console.log("readingstate");
-                levelspers = parseInt(localStorage.getItem("lastlev"));
-                var lastpasscon = localStorage.getItem("lastpass");
+                levelspers = parseInt(window.localStorage.getItem("lastlev"));
+                var lastpasscon = window.localStorage.getItem("lastpass");
                 if (CryptoJS.SHA512(lastpasscon) == levels[levelspers].hash) {
                     var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, lastpasscon).toString(CryptoJS.enc.Utf8);
                     $("#quscon").css("background-image", "url(" + nextqus + ")");
@@ -119,7 +119,7 @@
                         alert("AC");
                         $("#iptanscon").attr('disabled',"true");
                         $("#subans").attr('disabled', "true");
-                        localStorage.clear();
+                        window.localStorage.clear();
                     }
                     else {
                         levelspers += 1;
@@ -142,9 +142,9 @@
                 $("#quscon").css("background-image", "url(" + nextqus + ")");//解密
                 $("#levtitle").text("Level " + (levelspers+1) +" "+ levels[levelspers].titles);
                 $("#levdesc").text(levels[levelspers].desc);
-                localStorage.setItem('visbefore',true);
-                localStorage.setItem('lastpass',$("#iptanscon").val());
-                localStorage.setItem('lastlev', levelspers);
+                window.localStorage.setItem('visbefore',true);
+                window.localStorage.setItem('lastpass', $("#iptanscon").val());
+                window.localStorage.setItem('lastlev', levelspers);
                 console.log("savingstate");
                 $("#iptanscon").val("");
                 $("#iptanscon").text("");
@@ -152,7 +152,7 @@
                     alert("AC");
                     $("#iptanscon").attr('disabled', "true");
                     $("#subans").attr('disabled', "true");
-                    localStorage.clear();
+                    window.localStorage.clear();
                 }
                 else {
                     levelspers += 1;
