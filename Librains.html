@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Librains</title>
     <script src="JS/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="JS/jquery-ui.min.js" type="text/javascript"></script>
     <script src="JS/rollups/aes.js" type="text/javascript"></script>
     <script src="JS/rollups/sha512.js" type="text/javascript"></script>
     <script src="levels.js" type="text/javascript"></script>
@@ -87,7 +88,7 @@
         }
     </style>
 </head>
-<body>
+<body id="bdcon">
     <h1 id="h1n">Librains</h1>
     <h2 id="levtitle">Level 0 致敬</h2>
     <div id="levdesc">向Brainpass致敬，向所有的解密游戏和开发者致敬</div>
@@ -159,7 +160,9 @@
                 }
             }
             else {
-                alert("WA");
+                $('#ipts').effect('shake', { times: 3 }, 100);
+                $('#iptanscon').effect('shake', { times: 7 }, 100);
+                $('#bdcon').effect('shake', { times: 1 }, 10);
             }
         });
     </script>
