@@ -57,9 +57,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Brainpast.html" />
+    <Content Include="Librains.html" />
     <Content Include="Creator.html" />
-    <Content Include="JavaScript2.js" />
     <Content Include="levels.js" />
     <Content Include="JS\components\aes-min.js" />
     <Content Include="JS\components\aes.js" />
