@@ -12,9 +12,9 @@ Librains是由Librazy也就是我（目前）独立开发的的开源网页解�
 
 ## 更多信息
 
-### 许可证
+### 许可证 !important
 源代码: [LGPLv3](http://www.gnu.org/licenses/lgpl.html)  
-文档: [署名-相同方式共享3.0中国大陆 CC BY-SA 3.0 CN](http://creativecommons.org/licenses/by-sa/3.0/cn/)
+文档和关卡: [署名-相同方式共享3.0中国大陆 CC BY-SA 3.0 CN](http://creativecommons.org/licenses/by-sa/3.0/cn/)
 
 ### 技术细节
 预计支持平台:暂不支持IE6、7，IE8状况未明
