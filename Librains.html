@@ -111,7 +111,6 @@
         <![endif]-->
     <script type="text/javascript">
         $(document).ready(function () {
-            var passed = false;
             if (window.localStorage.getItem("visbefore") && window.localStorage.getItem("lastpass") && window.localStorage.getItem("lastlev") && window.localStorage.getItem("prevpass")) {
                 console.log("readingstate");
                 levelspers = parseInt(window.localStorage.getItem("lastlev"));
@@ -124,6 +123,7 @@
                     $("#levdesc").text(levels[levelspers].desc);
                     $("#iptanscon").val("");
                     $("#iptanscon").text("");
+                    console.log("readingstate2");
                     if (levels[levelspers].endl == 1) {
                         $("#iptanscon").attr('disabled', "true");
                         $("#subans").attr('disabled', "true");
@@ -137,12 +137,11 @@
             else {
                 window.localStorage.clear();
             }
-
         });
         document.onkeydown = function (e) {
             var theEvent = window.event || e;
             var code = theEvent.keyCode || theEvent.which;
-            if (code == 13 && (!passsed)) {
+            if (code == 13 && (!passed)) {
                 $("#subans").click();
             }
         }
@@ -157,7 +156,11 @@
                 $("#levdesc").text(levels[levelspers].desc);
                 window.localStorage.setItem('visbefore', true);
                 lastpass = $("#iptanscon").val();
-                window.localStorage.setItem('prevpass', window.localStorage.getItem("lastpass"));
+                if (levelspers != 0) {
+                    window.localStorage.setItem('prevpass', window.localStorage.getItem("lastpass"));
+                } else {
+                    window.localStorage.setItem('prevpass',"Librains");
+                }
                 window.localStorage.setItem('lastpass', lastpass);
                 window.localStorage.setItem('lastlev', levelspers);
                 console.log("savingstate");
@@ -169,7 +172,7 @@
                     $("#subans").attr('disabled', "true");
                     $("#levtitle").text("Librains " + levels[levelspers].titles);
                     window.localStorage.clear();
-
+                    passed = true;
                 }
                 else {
                     levelspers += 1;
