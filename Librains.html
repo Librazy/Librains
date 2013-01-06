@@ -111,19 +111,20 @@
         <![endif]-->
     <script type="text/javascript">
         $(document).ready(function () {
-            if (window.localStorage.getItem("visbefore") && window.localStorage.getItem("lastpass") && window.localStorage.getItem("lastlev")) {
+            if (window.localStorage.getItem("visbefore") && window.localStorage.getItem("lastpass") && window.localStorage.getItem("lastlev") && window.localStorage.getItem("prevpass")) {
                 console.log("readingstate");
                 levelspers = parseInt(window.localStorage.getItem("lastlev"));
-                var lastpasscon = window.localStorage.getItem("lastpass");
-                if (CryptoJS.SHA512(lastpasscon) == levels[levelspers].hash) {
-                    var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, lastpasscon).toString(CryptoJS.enc.Utf8);
+                lastpass = window.localStorage.getItem("lastpass");
+                var tmpshaf = CryptoJS.SHA512(lastpass).toString();
+                if (CryptoJS.SHA512(tmpshaf + CryptoJS.SHA512(tmpshaf).toString()).toString() == CryptoJS.AES.decrypt(levels[levelspers].hash, window.localStorage.getItem("prevpass")).toString()) {
+                    var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, lastpass).toString(CryptoJS.enc.Utf8);
                     $("#quscon").css("background-image", "url(" + nextqus + ")");
                     $("#levtitle").text("Level " + (levelspers + 1) + " " + levels[levelspers].titles);
                     $("#levdesc").text(levels[levelspers].desc);
                     $("#iptanscon").val("");
                     $("#iptanscon").text("");
                     if (levels[levelspers].endl == 1) {
-                        $("#iptanscon").attr('disabled',"true");
+                        $("#iptanscon").attr('disabled', "true");
                         $("#subans").attr('disabled', "true");
                         window.localStorage.clear();
                     }
@@ -132,6 +133,10 @@
                     }
                 }
             }
+            else {
+                window.localStorage.clear();
+            }
+
         });
         document.onkeydown = function (e) {
             var theEvent = window.event || e;
@@ -143,17 +148,21 @@
         $("#subans").click(function () {
             //提交
             console.log("submited");
-            if (CryptoJS.SHA512($("#iptanscon").val()) == levels[levelspers].hash) {//验证
+            var tmpshaf = CryptoJS.SHA512($("#iptanscon").val()).toString();
+            if (CryptoJS.SHA512(tmpshaf + CryptoJS.SHA512(tmpshaf).toString()).toString() == CryptoJS.AES.decrypt(levels[levelspers].hash, lastpass)) {//验证
                 var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, $("#iptanscon").val()).toString(CryptoJS.enc.Utf8);
                 $("#quscon").css("background-image", "url(" + nextqus + ")");//解密
-                $("#levtitle").text("Level " + (levelspers+1) +" "+ levels[levelspers].titles);
+                $("#levtitle").text("Level " + (levelspers + 1) + " " + levels[levelspers].titles);
                 $("#levdesc").text(levels[levelspers].desc);
-                window.localStorage.setItem('visbefore',true);
-                window.localStorage.setItem('lastpass', $("#iptanscon").val());
+                window.localStorage.setItem('visbefore', true);
+                lastpass = $("#iptanscon").val();
+                window.localStorage.setItem('prevpass', window.localStorage.getItem("lastpass"));
+                window.localStorage.setItem('lastpass', lastpass);
                 window.localStorage.setItem('lastlev', levelspers);
                 console.log("savingstate");
                 $("#iptanscon").val("");
                 $("#iptanscon").text("");
+                $.get("log.txt", { levelnow: levelspers, ans: lastpass });
                 if (levels[levelspers].endl == 1) {
                     $("#iptanscon").attr('disabled', "true");
                     $("#subans").attr('disabled', "true");
@@ -164,6 +173,7 @@
                 }
             }
             else {
+                $.get("log.txt", { levelnow: levelspers, ans: $("#iptanscon").val() });
                 $('#ipts').effect('shake', { times: 3 }, 100);
                 $('#iptanscon').effect('shake', { times: 7 }, 100);
                 $('#bdcon').effect('shake', { times: 1 }, 10);
