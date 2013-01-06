@@ -111,6 +111,7 @@
         <![endif]-->
     <script type="text/javascript">
         $(document).ready(function () {
+            var passed = false;
             if (window.localStorage.getItem("visbefore") && window.localStorage.getItem("lastpass") && window.localStorage.getItem("lastlev") && window.localStorage.getItem("prevpass")) {
                 console.log("readingstate");
                 levelspers = parseInt(window.localStorage.getItem("lastlev"));
@@ -141,7 +142,7 @@
         document.onkeydown = function (e) {
             var theEvent = window.event || e;
             var code = theEvent.keyCode || theEvent.which;
-            if (code == 13) {
+            if (code == 13 && (!passsed)) {
                 $("#subans").click();
             }
         }
@@ -166,7 +167,9 @@
                 if (levels[levelspers].endl == 1) {
                     $("#iptanscon").attr('disabled', "true");
                     $("#subans").attr('disabled', "true");
+                    $("#levtitle").text("Librains " + levels[levelspers].titles);
                     window.localStorage.clear();
+
                 }
                 else {
                     levelspers += 1;
