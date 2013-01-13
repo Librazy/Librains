@@ -165,3 +165,4 @@ pip-log.txt
 #Librazy
 *.sln
 *.csproj
+*.log
