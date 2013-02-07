@@ -18,10 +18,10 @@ Librains是由Librazy也就是我（目前）独立开发的的开源网页解�
 
 ### 技术细节
 预计支持平台:暂不支持IE6、7，IE8状况未明
-主要使用的库：CryptoJS和JQuery
+主要使用的库：CryptoJS和JQuery、JQuery UI
 
 ### 目前进度
-正在进行理论设计和框架测试，目前仅有很少的代码和Deomo.
+正在进行理论设计和框架测试，目前仅有很少的代码和Demo.
 
 ### 关于本文档
 照搬了ZeroMS@jybox的README.md

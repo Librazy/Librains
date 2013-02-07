@@ -166,3 +166,4 @@ pip-log.txt
 *.sln
 *.csproj
 *.log
+*.config

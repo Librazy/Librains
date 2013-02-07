@@ -1,33 +1,92 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Librains</title>
     <script src="JS/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script src="JS/rollups/aes.js" type="text/javascript"></script>
     <script src="JS/rollups/sha512.js" type="text/javascript"></script>
     <style type="text/css">
-        #quscon
-        { 
-            width:600px;
-            background-repeat:no-repeat;
-            background-position:center;
+        input {
+            width: 600px;
+        }
+
+        #subans, #nextqus {
+            width: 200px;
+        }
+
+        textarea {
+            width: 600px;
+            text-wrap:avoid;
+            word-break:keep-all;
         }
     </style>
+    <script>
+        (function () {
+            var PJ = {};
+
+            // dom collection
+            var _DROP_AREA = null;
+            var _data_textareas = null;
+            var _data_previewareas = null;
+
+            PJ.init = function () {
+                _DROP_AREA = window;
+                _DROP_AREA.addEventListener("dragenter", PJ._dragenter, false);
+                _DROP_AREA.addEventListener("dragover", PJ._dragover, false);
+                _DROP_AREA.addEventListener("drop", PJ._drop, false);
+            };
+            PJ._dragenter = function (e) { e.stopPropagation(); e.preventDefault(); };
+            PJ._dragover = function (e) { e.stopPropagation(); e.preventDefault(); };
+            PJ._drop = function (e) { PJ.handleFiles(e); e.stopPropagation(); e.preventDefault(); };
+            PJ.handleFiles = function (e) {
+                var dt = e.dataTransfer;
+                var files = dt.files;
+                PJ.openFiles(files);
+            };
+            PJ.openFiles = function (/*@type {Files}*/files) {
+                for (var i = 0, l = files.length; i < l; i++) {
+                    PJ.readFile(files[i], i);
+                }
+            }
+            PJ.readFile = function (/*@type {File}*/ file,/*@type {int}*/ index) {
+                var reader = new FileReader();
+                reader.onload = function (/*@type {ProgressEvent}*/e) {
+                    var _result = e.target.result;
+                    $("#iptqus").val(_result);
+                };
+                reader.readAsDataURL(file);
+            };
+            window.addEventListener("load", PJ.init, false);
+        })();
+	</script>
 </head>
 <body>
     <h1>Librains</h1>
-    hash：
-    <input type="text" id="hash" />
-    <br />enc:
-    <input type="text" id="qusenc" />
-    <br />inputqus:
+    <br />
+    inputqus:<br />
     <input type="text" id="iptqus" />
-    <br />passwd:
+    <br />
+    passwd:<br />
     <input type="text" id="iptpas" />
-    <br />prevpass:
+    <br />
+    prevpass:<br />
     <input type="text" id="iptprevpass" />
-    <input type="button" id="subans" />
+    <br />
+    description:<br />
+    <input type="text" id="iptdesc" />
+    <br />
+    title:<br />
+    <input type="text" id="ipttitle" />
+    <br />
+    hash：<br />
+    <input type="text" id="hash" />
+    <br />
+    enc:<br />
+    <input type="text" id="qusenc" /><br />
+    <input type="button" id="subans" value="生成" />
+    <input type="button" id="nextqus" value="下一题" /><br />
+    <textarea id="gjs"></textarea>
     <script type="text/javascript">
         $("#subans").click(function () {
             $("#qusenc").val(
@@ -37,8 +96,17 @@
             $("#hash").val(
             CryptoJS.AES.encrypt(CryptoJS.SHA512(tmpshaf + CryptoJS.SHA512(tmpshaf)), $("#iptprevpass").val()).toString().replace(/\s/, "")
            );
+            $("#gjs").val("levels[] = { endl: 0,\n desc:\"" + $("#iptdesc").val() + "\",\n titles: \"" + $("#ipttitle").val() + "\", hash: \"" + $("#hash").val() + "\", encqus:\"" + $("#qusenc").val() + "\"};");
         });
-
+        $("#nextqus").click(function () {
+            $("#iptprevpass").val($("#iptpas").val());
+            $("#iptpas").val("");
+            $("#iptqus").val("");
+            $("#hash").val("");
+            $("#qusenc").val("");
+            $("#iptdesc").val("");
+            $("#ipttitle").val("");
+        });
     </script>
 </body>
 </html>
