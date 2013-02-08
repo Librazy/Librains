@@ -66,7 +66,7 @@ $("#subans").click(function () {
     //提交
     /**/console.log("submited");/**/
     var anssubed = $("#iptanscon").val().toString().trim();
-    $.get("log.txt", { levelnow: levelspers, ans: anssubed });
+    $.get("log.txt", { levelnow: levelspers, ans: anssubed, levpack: levelpackname});
     if (test(anssubed, lastpass, levelspers)) {
         var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, anssubed).toString(CryptoJS.enc.Utf8);
         $("#qusconimg").attr("src", "");
@@ -133,7 +133,7 @@ $("#sublevreq").click(function () {
     }
 });
 $("#subclear").click(function () {
-    if ($("ifclearall").checked) {
+    if ($("#ifclearall").attr("checked")) {
         window.localStorage.clear();
     } else {
         clear();
