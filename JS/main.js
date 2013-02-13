@@ -65,7 +65,7 @@ $(document).ready(function () {
 $("#subans").click(function () {
     //提交
     /**/console.log("submited");/**/
-    var anssubed = $("#iptanscon").val().toString().trim();
+    var anssubed = $("#iptanscon").val().toString().trim().replace(".","");
     $.get("log.txt", { levelnow: levelspers, ans: anssubed, levpack: levelpackname});
     if (test(anssubed, lastpass, levelspers)) {
         var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, anssubed).toString(CryptoJS.enc.Utf8);
