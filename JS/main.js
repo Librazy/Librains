@@ -71,6 +71,8 @@ $("#subans").click(function () {
         var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, anssubed).toString(CryptoJS.enc.Utf8);
         $("#qusconimg").attr("src", "");
         $("#qusconimg").attr("src", nextqus);//解密
+        $("#qusconimg").css("width", "auto");
+        $("#qusconimg").css("height", "auto");
         $("#levtitle").text("Level " + (levelspers + 1) + " " + levels[levelspers].titles);
         $("#levdesc").text(levels[levelspers].desc);
         //set the storage begin
