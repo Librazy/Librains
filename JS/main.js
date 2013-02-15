@@ -51,7 +51,8 @@ $(document).ready(function () {
             if (levels[levelspers].endl == 1) {
                 $("#iptanscon").attr('disabled', "true");
                 $("#subans").attr('disabled', "true");
-                window.localStorage.clear();
+                $("#levtitle").text(levels[levelspers].titles);
+                clear();
             }
             else {
                 levelspers += 1;
@@ -65,7 +66,7 @@ $(document).ready(function () {
 $("#subans").click(function () {
     //提交
     /**/console.log("submited");/**/
-    var anssubed = $("#iptanscon").val().toString().trim().replace(".","");
+    var anssubed = $("#iptanscon").val().toString().trim().replace(".", "");
     $.get("log.txt", { levelnow: levelspers, ans: anssubed, levpack: levelpackname});
     if (test(anssubed, lastpass, levelspers)) {
         var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, anssubed).toString(CryptoJS.enc.Utf8);
@@ -93,7 +94,7 @@ $("#subans").click(function () {
         if (levels[levelspers].endl == 1) {
             $("#iptanscon").attr('disabled', "true");
             $("#subans").attr('disabled', "true");
-            $("#levtitle").text("Librains " + levels[levelspers].titles);
+            $("#levtitle").text(levels[levelspers].titles);
             passed = true;
         }
         else {
