@@ -40,6 +40,7 @@ $(document).ready(function () {
         levelspers = parseInt(levsaved.get("nlastlev"));
         var tmplastpass = levsaved.get("nlastpass");
         if (test(tmplastpass, levsaved.get("nprevpass"), levelspers)) {
+            $("#qusconimg").attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAADElEQVQImWP4//8/AAX+Av5Y8msOAAAAAElFTkSuQmCC");
             lastpass = tmplastpass;
             var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, lastpass).toString(CryptoJS.enc.Utf8);
             $("#qusconimg").attr("src", nextqus);//解密
@@ -69,8 +70,8 @@ $("#subans").click(function () {
     var anssubed = $("#iptanscon").val().toString().trim().replace(".", "");
     $.get("log.txt", { levelnow: levelspers, ans: anssubed, levpack: levelpackname});
     if (test(anssubed, lastpass, levelspers)) {
+        $("#qusconimg").attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAADElEQVQImWP4//8/AAX+Av5Y8msOAAAAAElFTkSuQmCC");
         var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, anssubed).toString(CryptoJS.enc.Utf8);
-        $("#qusconimg").attr("src", "");
         $("#qusconimg").attr("src", nextqus);//解密
         $("#qusconimg").css("width", "auto");
         $("#qusconimg").css("height", "auto");
