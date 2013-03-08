@@ -70,13 +70,15 @@ $("#subans").click(function () {
     var anssubed = $("#iptanscon").val().toString().trim().replace(".", "");
     $.get("log.txt", { levelnow: levelspers, ans: anssubed, levpack: levelpackname});
     if (test(anssubed, lastpass, levelspers)) {
+        //set the question begin
         $("#qusconimg").attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAADElEQVQImWP4//8/AAX+Av5Y8msOAAAAAElFTkSuQmCC");
         var nextqus = CryptoJS.AES.decrypt(levels[levelspers].encqus, anssubed).toString(CryptoJS.enc.Utf8);
-        $("#qusconimg").attr("src", nextqus);//解密
+        $("#qusconimg").attr("src", nextqus);//解密问题图片
         $("#qusconimg").css("width", "auto");
         $("#qusconimg").css("height", "auto");
         $("#levtitle").text("Level " + (levelspers + 1) + " " + levels[levelspers].titles);
         $("#levdesc").text(levels[levelspers].desc);
+        //set the question end
         //set the storage begin
         window.localStorage.setItem('nvisbefore', true);
         lastpass = anssubed;
@@ -90,7 +92,7 @@ $("#subans").click(function () {
         levsaved.set('levpass' + levelspers.toString(), lastpass).save();
         //set the storage end
         /**/console.log("savingstate");/**/
-        $("#iptanscon").val("");
+        $("#iptanscon").val("");//清除文字
         $("#iptanscon").text("");
         if (levels[levelspers].endl == 1) {
             $("#iptanscon").attr('disabled', "true");
