@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Librains</title>
@@ -16,9 +16,13 @@
         }
 
         textarea {
-            width: 600px;
+            width: 1000px;
+            height:400px;
             text-wrap:avoid;
             word-break:keep-all;
+        }
+        #levper{
+            width:70px;
         }
     </style>
     <script>
@@ -63,25 +67,25 @@
 <body>
     <h1>Librains</h1>
     <br />
-    inputqus:<br />
+    题目图片URL:<br />
     <input type="text" id="iptqus" />
-    <br />
-    passwd:<br />
+    当前关卡:<input type="number" value="1" id="levper" /><br />
+    上一关密码:<br />
     <input type="text" id="iptpas" />
     <br />
-    prevpass:<br />
+    前两关密码:<br />
     <input type="text" id="iptprevpass" />
     <br />
-    description:<br />
+    描述:<br />
     <input type="text" id="iptdesc" />
     <br />
-    title:<br />
+    标题:<br />
     <input type="text" id="ipttitle" />
     <br />
-    hash：<br />
-    <input type="text" id="hash" />
+    加密的答案：<br />
+    <input type="text" id="hash" readonly="readonly"/>
     <br />
-    enc:<br />
+    加密的题目:<br />
     <input type="text" id="qusenc" /><br />
     <input type="button" id="subans" value="生成" />
     <input type="button" id="nextqus" value="下一题" /><br />
@@ -95,7 +99,7 @@
             $("#hash").val(
             CryptoJS.AES.encrypt(CryptoJS.SHA512(tmpshaf + CryptoJS.SHA512(tmpshaf)), $("#iptprevpass").val()).toString().replace(/\s/, "")
            );
-            $("#gjs").val("levels[] = { endl: 0,\n desc:\"" + $("#iptdesc").val() + "\",\n titles: \"" + $("#ipttitle").val() + "\", hash: \"" + $("#hash").val() + "\", encqus:\"" + $("#qusenc").val() + "\"};");
+            $("#gjs").val("levels[] = { endl: 0,\n desc:\"" + $("#iptdesc").val() + "\",\n titles: \"" + $("#ipttitle").val() + "\", \n hash: \"" + $("#hash").val() + "\",\n encqus:\"" + $("#qusenc").val() + "\" \n };");
         });
         $("#nextqus").click(function () {
             $("#iptprevpass").val($("#iptpas").val());
